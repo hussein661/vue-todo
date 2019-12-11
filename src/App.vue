@@ -4,25 +4,22 @@
       <div class="todo-container">
         <TodoList :todos="todos" />
         <div class="todo-create-btn-container">
-          <div @click="openModal" class="app-button">
-            Create
-          </div>
+          <TodoCreate @createTodo="createTodo" />
         </div>
       </div>
     </div>
-    <Modal :isActive="isActive" />
   </div>
 </template>
 
 <script>
 import playground from "./playground";
 import TodoList from "./components/TodoList";
-import Modal from "./components/Modal";
+import TodoCreate from "./components/TodoCreate";
 export default {
   name: "app",
   components: {
     TodoList,
-    Modal
+    TodoCreate
   },
   data() {
     return {
@@ -42,13 +39,16 @@ export default {
           title: "learn proframmin",
           description: "walk a dog throub a zssda asd asd aoo"
         }
-      ],
-      isActive: false
+      ]
     };
   },
   methods: {
-    openModal() {
-      this.isActive = !this.isActive;
+    createTodo(form) {
+      this.todos.push({
+        id: this.todos.length + 1,
+        title: form.title,
+        description: form.description
+      });
     }
   },
   created() {
@@ -62,7 +62,6 @@ export default {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   padding: 20px;
 }
 
@@ -76,6 +75,26 @@ export default {
 
   &:hover {
     cursor: pointer;
+  }
+}
+
+.is-primary {
+  background-color: green;
+}
+.app-form {
+  .label {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .form-input {
+    padding: 10px;
+    font-size: 17px;
+    padding: 10px;
+  }
+  .form-control {
+    margin-bottom: 10px;
+    text-align: left;
   }
 }
 

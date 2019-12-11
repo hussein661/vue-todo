@@ -1,30 +1,27 @@
 <template>
-        <div class="modal" :class="{'is-active':isActive}">
-      <div class="modal-content">
-          <span @click="closeModal" class="close">&times;</span>
-         <p>model conten</p>
-         </div>
+  <div>
+    <div @click="isOpen = true" class="app-button">
+      Create
     </div>
+    <div class="modal" :class="{ 'is-open': isOpen }">
+      <div class="modal-content">
+        <span @click="isOpen = false" class="close">&times;</span>
+        <slot />
+      </div>
+    </div>
+  </div>
 </template>
-
 
 <script>
 export default {
-    props:['isActive'],
-    data(){
-        return{
-        }
-    },
-    methods:{
-        closeModal(){
-            this.isActive = !this.isActive
-        }
-    }
-}
+  data() {
+    return {
+      isOpen: false
+    };
+  }
+};
 </script>
 <style lang="scss" scoped>
-
-
 .modal {
   display: none;
   position: fixed;
@@ -35,9 +32,8 @@ export default {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
-  &.is-active {
+  &.is-open {
     display: block;
-
   }
 
   &-content {
@@ -49,14 +45,13 @@ export default {
     width: 80%;
     position: relative;
     .close {
-        position: absolute;
-        color: #aaa;
-        top: 0;
-        right: 0;
-        cursor: pointer;
-        margin: 1px 2px;
+      position: absolute;
+      color: #aaa;
+      top: 0;
+      right: 0;
+      cursor: pointer;
+      margin: 1px 2px;
     }
   }
 }
-
 </style>
