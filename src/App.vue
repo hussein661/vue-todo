@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import playground from "./playground";
 import TodoList from "./components/TodoList";
 import TodoCreate from "./components/TodoCreate";
+import store from "@/store";
 export default {
   name: "app",
   components: {
@@ -23,36 +23,16 @@ export default {
   },
   data() {
     return {
-      todos: [
-        {
-          id: 1,
-          title: "walk a dog",
-          description: "walk a dog throub a zoo"
-        },
-        {
-          id: 2,
-          title: "vuy a bfraddd",
-          description: "walk a dog throub a zoo"
-        },
-        {
-          id: 3,
-          title: "learn proframmin",
-          description: "walk a dog throub a zssda asd asd aoo"
-        }
-      ]
+      todos: store.state.todos
     };
   },
   methods: {
     createTodo(form) {
-      this.todos.push({
-        id: this.todos.length + 1,
-        title: form.title,
-        description: form.description
-      });
+      store.dispatch("createTodo", form);
     }
   },
   created() {
-    playground();
+    this.todos = store.dispatch("initStore");
   }
 };
 </script>
@@ -81,6 +61,25 @@ export default {
 .is-primary {
   background-color: green;
 }
+
+.control-button {
+  font-size: 14px;
+  margin-top: 4px;
+  margin-right: 4px;
+  color: white;
+  display: inline-block;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 1px;
+  cursor: pointer;
+}
+.is-warning {
+  background-color: orange;
+}
+
+.is-danger {
+  background-color: red;
+}
 .app-form {
   .label {
     display: block;
@@ -98,15 +97,6 @@ export default {
   }
 }
 
-// .block-display {
-//   display: block
-// }
-
-// .none-display {
-//   display: none;
-
-// }
-
 .todo {
   &-wrapper {
     display: flex;
@@ -120,10 +110,10 @@ export default {
     display: flex;
     flex-direction: column;
     width: 50%;
-    /* margin:0 auto; */
-    background-color: orangered;
-    min-height: 400px;
+    background-color: rgb(37, 36, 36);
+    min-height: 200px;
     border-radius: 5px;
+    color: white;
   }
 }
 </style>

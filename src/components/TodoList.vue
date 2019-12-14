@@ -1,11 +1,17 @@
 <template>
   <div class="todo-list">
-    <TodoItem
-      v-for="todo in todos"
-      :key="todo.id"
-      :title="todo.title"
-      :description="todo['description']"
-    />
+    <div v-if="todos && todos.length > 0">
+      <TodoItem
+        v-for="todo in todos"
+        :key="todo.id"
+        :id="todo.id"
+        :title="todo.title"
+        :description="todo['description']"
+      />
+    </div>
+    <div v-else class="no-todos">
+      No todos :( let's create one!
+    </div>
   </div>
 </template>
 
@@ -15,17 +21,20 @@ export default {
   components: {
     TodoItem
   },
-  props:["todos"],
+  props: ["todos"],
   data() {
-      return {
-
-      };
+    return {};
   }
 };
 </script>
 
 <style lang="scss" scoped>
-    .todo-list {
-        flex: 1;
-    }
+.todo-list {
+  flex: 1;
+}
+.no-todos {
+  text-align: center;
+  font-size: 23px;
+  margin-top: 15px;
+}
 </style>
